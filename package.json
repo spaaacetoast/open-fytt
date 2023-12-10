@@ -4,23 +4,26 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "tauri": "tauri"
+    "start": "astro dev",
+    "dev": "astro dev",
+    "build": "astro build",
+    "serve": "astro preview",
+    "tauri": "tauri",
+    "astro": "astro"
   },
   "license": "MIT",
   "dependencies": {
-    "solid-js": "^1.7.8",
-    "@tauri-apps/api": "^2.0.0-alpha.11",
-    "@tauri-apps/plugin-shell": "^2.0.0-alpha.3"
+    "@astrojs/check": "^0.3.1",
+    "@astrojs/solid-js": "^3.0.2",
+    "@tauri-apps/api": "^2.0.0-alpha.12",
+    "@tauri-apps/plugin-shell": "^2.0.0-alpha.3",
+    "astro": "^4.0.3",
+    "solid-js": "^1.8.7",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.4.4",
-    "vite-plugin-solid": "^2.7.0",
-    "@tauri-apps/cli": "^2.0.0-alpha.17",
+    "@tauri-apps/cli": "^2.0.0-alpha.18",
     "internal-ip": "^7.0.0"
   }
 }
