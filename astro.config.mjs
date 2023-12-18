@@ -1,13 +1,14 @@
 import { defineConfig } from "astro/config";
 
 import solidJs from "@astrojs/solid-js";
+import pandacss from "@pandacss/astro";
 
 const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
 
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  integrations: [solidJs()],
+  integrations: [solidJs(), pandacss()],
   vite: {
     clearScreen: false,
     server: {
