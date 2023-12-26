@@ -1,4 +1,5 @@
 import { defineConfig } from "@pandacss/dev";
+import { horizontalDatePickerButtonRecipe } from "./src/components/horizontalDatePickerButtonRecipe";
 
 export default defineConfig({
   // Whether to use css reset

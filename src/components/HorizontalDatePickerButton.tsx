@@ -1,28 +1,15 @@
-import { cva, type RecipeVariantProps } from "../../panda-system/css";
-import { panda } from "../../panda-system/jsx";
+import type { HTMLPandaProps } from "../../styled-system/types";
+import { createStyleContext } from "../lib/createStyleContext";
+import { horizontalDatePickerButtonRecipe } from "./horizontalDatePickerButtonRecipe";
 
-const horizontalDatePickerButtonStyle = cva({
-  base: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  variants: {
-    visual: {
-      solid: { bg: "red.200", color: "white" },
-      outline: { borderWidth: "1px", borderColor: "red.200" },
-    },
-    size: {
-      sm: { padding: "4", fontSize: "12px" },
-      lg: { padding: "8", fontSize: "24px" },
-    },
-  },
-});
-
-export type horizontalDatePickerButtonVariants = RecipeVariantProps<
-  typeof horizontalDatePickerButtonStyle
->;
-
-export const HorizontalDatePickerButton = panda(
-  "button",
-  horizontalDatePickerButtonStyle
+const { withProvider, withContext } = createStyleContext(
+  horizontalDatePickerButtonRecipe
 );
+
+const Root = withProvider("button", "root");
+const Label = withContext("label", "label");
+const SubLabel = withContext("label", "sublabel");
+
+export const HorizontalDatePickerButton = { Root, Label, SubLabel };
+
+export type HorizontalDatePickerButtonProps = HTMLPandaProps<typeof Root>;

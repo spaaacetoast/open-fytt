@@ -1,12 +1,10 @@
 ---
-import { panda } from '../../panda-system/jsx';
 import { HorizontalDatePicker } from '../components/HorizontalDatePicker';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
 	<main>
-		<panda.h1 bgColor="red">Horizontal Date Picker</panda.h1>
-		<HorizontalDatePicker/>
+		<HorizontalDatePicker client:only="solid-js"/>
 	</main>
 </Layout>

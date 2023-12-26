@@ -1,6 +1,8 @@
+import "solid-devtools";
+
 import dayjs, { Dayjs } from "dayjs";
 import { For, createSignal } from "solid-js";
-import { Flex, HStack, panda } from "../../panda-system/jsx";
+import { HStack } from "../../styled-system/jsx";
 import { HorizontalDatePickerButton } from "./HorizontalDatePickerButton";
 
 const getDaysFromWeek = (date: Dayjs) => {
@@ -20,24 +22,44 @@ const extendedWeekDays = (date: Dayjs) => {
 
 export const HorizontalDatePicker = () => {
   const weekDays = extendedWeekDays(dayjs());
-  const [selectedDate, setSelectedDate] = createSignal(dayjs());
+  const [selectedDate, setSelectedDate] = createSignal(dayjs().startOf("day"));
 
   return (
-    <HStack overflow="hidden">
-      <For each={weekDays}>
-        {(week) => (
-          <panda.div width="screen">
-            <For each={week}>
-              {(day) => (
-                <HorizontalDatePickerButton>
-                  <span>{day.format("ddd")}</span>
-                  <span>{day.format("DD")}</span>
-                </HorizontalDatePickerButton>
-              )}
-            </For>
-          </panda.div>
-        )}
-      </For>
-    </HStack>
+    <>
+      <HStack
+        gap={4}
+        overflowX="auto"
+        scrollSnapType="x"
+        scrollSnapStrictness="mandatory"
+        maxWidth="screen"
+        scrollbar="hidden"
+      >
+        <For each={weekDays}>
+          {(week) => (
+            <HStack scrollSnapAlign="center" flexShrink={0} width="screen">
+              <For each={week}>
+                {(day) => (
+                  <>
+                    <HorizontalDatePickerButton.Root
+                      isSelected={day.isSame(selectedDate(), "day")}
+                      onClick={() => {
+                        setSelectedDate(day);
+                      }}
+                    >
+                      <HorizontalDatePickerButton.Label>
+                        {day.format("dddd")}
+                      </HorizontalDatePickerButton.Label>
+                      <HorizontalDatePickerButton.SubLabel>
+                        {day.format("D")}
+                      </HorizontalDatePickerButton.SubLabel>
+                    </HorizontalDatePickerButton.Root>
+                  </>
+                )}
+              </For>
+            </HStack>
+          )}
+        </For>
+      </HStack>
+    </>
   );
 };

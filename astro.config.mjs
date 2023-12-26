@@ -8,7 +8,7 @@ const mobile = !!/android|ios/.exec(process.env.TAURI_ENV_PLATFORM);
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  integrations: [solidJs(), pandacss()],
+  integrations: [pandacss(), solidJs()],
   vite: {
     clearScreen: false,
     server: {
