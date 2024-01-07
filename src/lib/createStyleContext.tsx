@@ -8,6 +8,7 @@ import {
   useContext,
   type ComponentProps,
   type ValidComponent,
+  createEffect,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
@@ -27,6 +28,7 @@ export const createStyleContext = <R extends StyleRecipe>(recipe: R) => {
     const StyledComponent = (props: P & Parameters<R>[0]) => {
       const [variantProps, componentProps] = recipe.splitVariantProps(props);
       const styleProperties = recipe(variantProps);
+
       return (
         <StyleContext.Provider value={styleProperties}>
           <Dynamic
@@ -48,6 +50,7 @@ export const createStyleContext = <R extends StyleRecipe>(recipe: R) => {
 
     const StyledComponent = (props: P) => {
       const styleProperties = useContext(StyleContext);
+
       return createComponent(
         Dynamic<any>,
         mergeProps(props, {

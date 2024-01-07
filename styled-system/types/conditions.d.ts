@@ -178,6 +178,7 @@ export interface Conditions {
 	"_horizontal": string
 	/** `&[data-orientation=vertical]` */
 	"_vertical": string
+		"_groupSelected": string
 	/** `@media screen and (min-width: 40em)` */
 	"sm": string
 	/** `@media screen and (min-width: 40em) and (max-width: 47.9975em)` */

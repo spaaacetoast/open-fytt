@@ -19,6 +19,12 @@ export default defineConfig({
     extend: {},
   },
 
+  conditions: {
+    extend: {
+      groupSelected: "[data-selected] > &",
+    },
+  },
+
   // The output directory for your css system
   outdir: "styled-system",
 

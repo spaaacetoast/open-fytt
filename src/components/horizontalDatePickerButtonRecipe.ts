@@ -1,49 +1,40 @@
-import { sva, type RecipeVariantProps } from "../../styled-system/css";
+import { sva } from "../../styled-system/css";
 
 export const horizontalDatePickerButtonRecipe = sva({
   slots: ["root", "label", "sublabel"],
   base: {
     root: {
       display: "flex",
+      width: "14",
+      py: "4",
+
       flexDirection: "column",
-      borderRadius: "md",
-      padding: "sm",
-      border: "1px solid black",
+      alignItems: "center",
+
+      border: "1px solid",
+      borderColor: { base: "gray.400", _selected: "gray.800" },
+      borderRadius: "full",
+
+      _selected: {
+        backgroundColor: "gray.800",
+
+        _hover: {
+          backgroundColor: "gray.700",
+        },
+      },
+
       _hover: {
         backgroundColor: "gray.100",
       },
-      _active: {
-        backgroundColor: "gray.400",
-      },
     },
     label: {
-      fontSize: "lg",
-      fontWeight: "bold",
-      color: "gray.800",
+      fontSize: "xl",
+      fontWeight: "medium",
+      color: { base: "gray.400", _groupSelected: "gray.100" },
     },
     sublabel: {
-      fontSize: "sm",
-      color: "gray.500",
-    },
-  },
-  variants: {
-    isSelected: {
-      true: {
-        root: {
-          backgroundColor: "cyan.500",
-          color: "white",
-        },
-        label: {
-          color: "white",
-        },
-        sublabel: {
-          color: "white",
-        },
-      },
+      fontSize: "xs",
+      color: { base: "gray.400", _groupSelected: "gray.100" },
     },
   },
 });
-
-export type HorizontalDatePickerButtonVariants = RecipeVariantProps<
-  typeof horizontalDatePickerButton
->;

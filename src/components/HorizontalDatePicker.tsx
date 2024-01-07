@@ -1,7 +1,5 @@
-import "solid-devtools";
-
 import dayjs, { Dayjs } from "dayjs";
-import { For, createSignal } from "solid-js";
+import { For, Index, createEffect, createSignal, onMount } from "solid-js";
 import { HStack } from "../../styled-system/jsx";
 import { HorizontalDatePickerButton } from "./HorizontalDatePickerButton";
 
@@ -22,7 +20,9 @@ const extendedWeekDays = (date: Dayjs) => {
 
 export const HorizontalDatePicker = () => {
   const weekDays = extendedWeekDays(dayjs());
-  const [selectedDate, setSelectedDate] = createSignal(dayjs().startOf("day"));
+  const [selectedDayOffset, setSelectedDayOffset] = createSignal(
+    weekDays[1].findIndex((day) => day.isSame(dayjs(), "day")) + 7
+  );
 
   return (
     <>
@@ -33,28 +33,36 @@ export const HorizontalDatePicker = () => {
         scrollSnapStrictness="mandatory"
         maxWidth="screen"
         scrollbar="hidden"
+        ref={(el) => setTimeout(() => el.children[1].scrollIntoView())}
       >
         <For each={weekDays}>
-          {(week) => (
-            <HStack scrollSnapAlign="center" flexShrink={0} width="screen">
+          {(week, weekIndex) => (
+            <HStack
+              flexShrink={0}
+              width="screen"
+              justifyContent="center"
+              scrollSnapAlign="center"
+            >
               <For each={week}>
-                {(day) => (
-                  <>
-                    <HorizontalDatePickerButton.Root
-                      isSelected={day.isSame(selectedDate(), "day")}
-                      onClick={() => {
-                        setSelectedDate(day);
-                      }}
-                    >
-                      <HorizontalDatePickerButton.Label>
-                        {day.format("dddd")}
-                      </HorizontalDatePickerButton.Label>
-                      <HorizontalDatePickerButton.SubLabel>
-                        {day.format("D")}
-                      </HorizontalDatePickerButton.SubLabel>
-                    </HorizontalDatePickerButton.Root>
-                  </>
-                )}
+                {(day, dayIndex) => {
+                  const dayOffset = () => dayIndex() + weekIndex() * 7;
+
+                  return (
+                    <>
+                      <HorizontalDatePickerButton
+                        selected={dayOffset() === selectedDayOffset()}
+                        onClick={() => setSelectedDayOffset(dayOffset())}
+                      >
+                        <HorizontalDatePickerButton.Label>
+                          {day.format("D")}
+                        </HorizontalDatePickerButton.Label>
+                        <HorizontalDatePickerButton.SubLabel>
+                          {day.format("ddd")}
+                        </HorizontalDatePickerButton.SubLabel>
+                      </HorizontalDatePickerButton>
+                    </>
+                  );
+                }}
               </For>
             </HStack>
           )}
